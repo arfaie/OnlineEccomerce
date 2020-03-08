@@ -45,7 +45,7 @@ namespace Ecommerce.Areas.Admin.Controllers
                                    UserFullName = u.Firstname + " " + u.Lastname
                                }).ToListAsync();
 
-            AddEditAgencyViewModel mode2l = new AddEditAgencyViewModel();
+           
 
             return View(model);
         }
