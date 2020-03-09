@@ -93,8 +93,8 @@
 
                 }
                 <div class="checkout-to-shipping-sticky">
-                    <form asp-area="User" asp-controller="Factor" asp-action="Factor" method="post">
-                        <button asp-area="User" asp-controller="Factor" asp-action="Factor"  class="selenium-next-step-shipping">ادامه فرآیند خرید</button>
+                    <form asp-controller="Factor" asp-action="Factor" method="post">
+                        <button asp-controller="Factor" asp-action="Factor"  class="selenium-next-step-shipping">ادامه فرآیند خرید</button>
                     </form>
                     <div class="checkout-to-shipping-price-report">
                         <p>مبلغ قابل پرداخت</p>
@@ -114,11 +114,11 @@
                         <ul class="checkout-summary-summary">
                             <li>
                                 <span>مبلغ کل (۱ کالا)</span>
-                                <span>۳,۴۲۰,۰۰۰ تومان</span>
+                                <span>@TotalPrice تومان</span>
                             </li>
                             <li>
                                 <span>جمع</span>
-                                <span>۳,۴۲۰,۰۰۰ تومان</span>
+                                <span>@TotalPrice تومان</span>
                             </li>
                             <li>
                                 <span style="color: #424750; font-size:14px;">هزینه ارسال</span>
@@ -130,7 +130,7 @@
                             </li>
                             <li>
                                 <span>مبلغ قابل پرداخت</span>
-                                <span>۳,۴۲۰,۰۰۰ تومان</span>
+                                <span>@TotalPrice تومان</span>
                             </li>
                             <li class="checkout-digiclub-container">
                                 <span class="checkout-digiclub-row">
@@ -139,12 +139,12 @@
                                         امتیاز دیجی‌کلاب
                                     </span>
                                 </span>
-                                <span class="checkout-digiclub-row">
+                                @*<span class="checkout-digiclub-row">
                                     150
                                     <span class="checkout-bill-currency">
                                         امتیاز
                                     </span>
-                                </span>
+                                </span>*@
 
                             </li>
                         </ul>
@@ -156,7 +156,7 @@
             </div>
         </div>
 
-        <div class="cart-tab-main" style="display:none;">
+        @*<div class="cart-tab-main" style="display:none;">
             <div class="col-lg-8 col-md-8 col-xs-12 pull-right">
                 <div class="page-content-cart">
                     <div class="container">
@@ -181,7 +181,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>*@
     </div>
     <!--  cart------------------>
 
@@ -217,7 +217,7 @@ else if (HttpCooki.HttpContext.Request.Cookies["S#$51%^Lm*A!2@m"] == null)
                 </div>
             </div>
         </div>
-        <div class="checkout-empty-inner-box">
+        @*<div class="checkout-empty-inner-box">
             <a href="#" class="checkout-empty-badge">
                 <img src="~/assets/images/footer-svg/delivery.svg">
                 <span class="item-feature">تحویل اکسپرس</span>
@@ -242,10 +242,10 @@ else if (HttpCooki.HttpContext.Request.Cookies["S#$51%^Lm*A!2@m"] == null)
                 <img src="~/assets/images/footer-svg/origin-guarantee.svg">
                 <span class="item-feature">ضمانت اصل بودن کالا</span>
             </a>
-        </div>
+        </div>*@
     </div>
     <!--   adplacement -------------------->
-    <div class="adplacement">
+    @*<div class="adplacement">
         <div class="col-6 col-lg-3 pull-right" style="padding-left:0;">
             <a href="#" class="item-adplacement">
                 <img src="~/assets/images/post-adplacement/1000012860.jpg" title="صوتی و تصویری">
@@ -269,9 +269,9 @@ else if (HttpCooki.HttpContext.Request.Cookies["S#$51%^Lm*A!2@m"] == null)
                 <img src="~/assets/images/post-adplacement/1000012909.jpg" title="مراقبت پوست و مو">
             </a>
         </div>
-    </div>
+    </div>*@
     <!--   adplacement -------------------->
-    <div class="col-lg-12 col-md-12 col-xs-12 pull-right">
+    @*<div class="col-lg-12 col-md-12 col-xs-12 pull-right">
         <div class="row">
             <div class="col-12">
                 <div class="widget widget-product card">
@@ -518,7 +518,7 @@ else if (HttpCooki.HttpContext.Request.Cookies["S#$51%^Lm*A!2@m"] == null)
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
     <!--  cart------------------>
 
     <script src="~/assets/js/jquery-3.2.1.min.js"></script>
