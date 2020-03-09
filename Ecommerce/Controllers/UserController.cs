@@ -614,5 +614,16 @@ namespace Ecommerce.Controllers
             return ob;
         }
 
+        public async Task<ActionResult> Logout()
+        {
+            if (Request.Cookies["S#$51%^Lm*A!2@m"] != null)
+            {
+                Response.Cookies.Delete("S#$51%^Lm*A!2@m");
+            }
+            HttpContext.Session.Clear();
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login");
+        }
+
     }
 }
