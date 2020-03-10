@@ -52,7 +52,7 @@
                         IdProducts.Add(item.Id);
                         <form asp-controller="Payment" asp-action="Payment" method="post">
                             <div class="checkout-body">
-                                <a asp-controller="HomePage" asp-action="DeleteRequestProduct" asp-route-Id="@item.Id" class="remove-from-cart"><i class="fa fa-close"></i></a>
+                                <a asp-controller="Factor" asp-action="DeleteRequestProduct" asp-route-Id="@item.Id" class="remove-from-cart"><i class="fa fa-close"></i></a>
                                 <a href="#" class="col-thumb"><img src="~/assets/images/product-slider-2/111460776.jpg"></a>
 
                                 <div class="checkout-col-desc">
@@ -93,7 +93,7 @@
 
                 }
                 <div class="checkout-to-shipping-sticky">
-                    <form asp-area="" asp-controller="Factor" asp-action="Factor" method="get">
+                    <form asp-area="" asp-controller="Factor" asp-action="Factor" method="post">
                         <button asp-area="" asp-controller="Factor" asp-action="Factor" class="selenium-next-step-shipping">ادامه فرآیند خرید</button>
                     </form>
                     <div class="checkout-to-shipping-price-report">
@@ -136,7 +136,7 @@
                                 <span class="checkout-digiclub-row">
                                     <img src="~/assets/images/digiclub.png">
                                     <span class="checkout-digiclub-points">
-                                        امتیاز دیجی‌کلاب
+                                        امتیاز کار بیوتیک
                                     </span>
                                 </span>
                                 @*<span class="checkout-digiclub-row">

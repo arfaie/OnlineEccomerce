@@ -8,6 +8,7 @@ using Ecommerce.Models;
 using Ecommerce.Net;
 using Ecommerce.Net.OptionEnums;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -66,7 +67,7 @@ namespace Ecommerce.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Factor()
+        public async Task<IActionResult> Factor(string b)
         {
             var TotalPrice = TempData["Total"];
             var idproducts_ = TempData["IdPoducts"];
@@ -81,10 +82,10 @@ namespace Ecommerce.Controllers
             Models.Factor factor = new Factor();
             using (var db = _serviceProvider.GetRequiredService<ApplicationDbContext>())
             {
-                factor.TotalPrice = (decimal)TotalPrice;
-                factor.TotalDisCount = product.Sum(p => p.OldPrice) - product.Sum(p => p.Price);
-                factor.Tax = (decimal)0.09;
-                factor.FinalPrice = (factor.TotalDisCount - (decimal)TotalPrice) * factor.Tax;
+                factor.TotalPrice = Convert.ToDecimal(TotalPrice);
+                factor.TotalDisCount = product.Sum(p => p.Price) - product.Sum(p => p.OldPrice);
+                factor.Tax = Convert.ToDecimal(0.09);
+                factor.FinalPrice = (Convert.ToDecimal(TotalPrice) - factor.TotalDisCount) * factor.Tax;
                 factor.IdUser = _userManager.GetUserId(User);
 
                 var currentDay = DateTime.Now;
@@ -98,7 +99,7 @@ namespace Ecommerce.Controllers
                     Convert.ToDateTime(currentDay.TimeOfDay.Hours + ":" + currentDay.TimeOfDay.Minutes + ":" +
                                        currentDay.TimeOfDay.Seconds));
 
-                string DateTimes = ShamsiDate + "|" + GetTime;
+                string DateTimes = ShamsiDate + " " + GetTime;
 
                 factor.Date = Convert.ToDateTime(DateTimes);
 
@@ -107,7 +108,7 @@ namespace Ecommerce.Controllers
             }
 
             TempData["Notif"] = Notification.ShowNotif(MessageType.Add, type: ToastType.green);
-            return View();
+            return View("requestedproduct");
         }
 
         [AllowAnonymous]
@@ -208,6 +209,71 @@ namespace Ecommerce.Controllers
             return View();
         }
 
+
+        [AllowAnonymous]
+        [Authorize(Roles = "User")]
+        public IActionResult DeleteRequestProduct(int Id)
+        {
+            string cookicontent = Request.Cookies["S#$51%^Lm*A!2@m"].ToString();
+            string[] ProductRequestedId = cookicontent.Split(",");
+            ProductRequestedId = ProductRequestedId.Where(b => b != "").ToArray();
+
+            List<string> idList = new List<string>(ProductRequestedId);
+            idList.Remove(Id.ToString());
+
+            cookicontent = "";
+            for (int i = 0; i < idList.Count(); i++)
+            {
+                cookicontent += "," + idList[i] + ",";
+            }
+
+            Response.Cookies.Append("S#$51%^Lm*A!2@m", cookicontent,
+                new CookieOptions() { Expires = DateTime.Now.AddMinutes(30) });
+
+            ////////////////////////////////////////////////////////////////////////////
+
+
+            List<Product> products = new List<Product>();
+
+
+            if (Request.Cookies["S#$51%^Lm*A!2@m"] != null)
+            {
+
+                string[] requestedproduct = cookicontent.Split(',');
+                requestedproduct = requestedproduct.Where(r => r != "").ToArray();
+
+                products = (from p in _context.Products
+                            where requestedproduct.Contains(p.Id.ToString())
+                            select new Product
+                            {
+                                Id = p.Id,
+                                Name = p.Name,
+                                Price = p.Price,
+                                ImageName = p.ImageName,
+
+                            }).ToList();
+
+            }
+
+            var query_fullName =
+                (from u in _context.Users where u.Id == _userManager.GetUserId(HttpContext.User) select u)
+                .SingleOrDefault();
+            ViewBag.fullname = query_fullName.Firstname + " " + query_fullName.Lastname;
+
+
+            ViewBag.imagepath = "/upload/normalimage/";
+
+            var select = _context.Cars.ToList();
+
+            ViewBag.Cars = select;
+
+            var select2 = _context.Categories.ToList();
+
+            ViewBag.Categories = select2;
+
+            return View("requestedproduct", products);
+
+        }
 
     }
 }
