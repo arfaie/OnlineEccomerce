@@ -230,7 +230,7 @@ namespace Ecommerce.Controllers
             Response.Cookies.Append("S#$51%^Lm*A!2@m", cookicontent,
                 new CookieOptions() { Expires = DateTime.Now.AddMinutes(30) });
 
-            ////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////
 
 
             List<Product> products = new List<Product>();
